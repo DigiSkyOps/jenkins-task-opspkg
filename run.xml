@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="opspkg" default="opspkg">
+
+    <!--
+    args:
+      artifact.id: opspkg
+      fileset.dir: ${ws.dir}
+      fileset.includes: *.xml,VERSION
+    -->
+    <target name="opspkg">
+        <if>
+          <not>
+            <isset property="artifact.id" />
+          </not>
+          <then>
+                <fail message="--// don't exist artifact info(artifact.id) properties." />
+            </then>
+        </if>
+
+        <!-- copy file by fileset type -->
+        <property name="fileset.dir" value="${ws.dir}" />
+        <property name="fileset.includes" value="VERSION" />
+        <property name="fileset.excludes" value="" />
+
+        <var name="##pkg.name##" value="${artifact.id}" />
+        <if>
+          <isset property="artifact.version" />
+          <then>
+            <var name="##pkg.name##" value="${artifact.id}-${artifact.version}" />
+          </then>
+          <else>
+            <getVersionFromFile versionFile="${ws.dir}/VERSION" versionProperty="VERSION" />
+            <var name="##pkg.name##" value="${artifact.id}-${VERSION}" />
+          </else>
+        </if>
+
+        <!-- copy artifact resource 
+        <mkdir dir="${##pkg.name##}" />
+        <copy todir="${##pkg.name##}" verbose="true">
+          <fileset dir="@{filesetDir}" includes="@{filesetIncludes}" excludes="@{filesetExcludes}" />
+        </copy>
+        -->
+
+        <tar destfile="${##pkg.name##}.tar.gz" basedir="${fileset.dir}" compression="gzip" includes="${fileset.includes}" excludes="${##pkg.name##}.tar.gz,${fileset.excludes}" />
+    </target>
+
+</project>
