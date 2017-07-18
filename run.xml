@@ -20,6 +20,8 @@
             </then>
         </if>
 
+        <property name="is.pkg" value="true" />
+
         <!-- copy file by fileset type -->
         <property name="fileset.dir" value="${ws.dir}" />
         <property name="fileset.includes" value="VERSION" />
@@ -44,7 +46,13 @@
           <fileset dir="${fileset.dir}" includes="${fileset.includes}" excludes="${fileset.excludes}" />
         </copy>
 
-        <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
+        <if>
+          <istrue value="${only.copy}" />
+          <then>
+            <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
+          </then>
+        </if>
+
     </target>
 
 </project>
