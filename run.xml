@@ -7,6 +7,9 @@
       fileset.dir: ${ws.dir}
       fileset.includes: *.xml,VERSION
     -->
+    <dirname property="task.basedir" file="${ant.file.opspkg}" />
+    <basename property="task.name" file="${task.basedir}" />
+
     <target name="opspkg">
         <if>
           <not>
@@ -34,14 +37,14 @@
           </else>
         </if>
 
-        <!-- copy artifact resource 
-        <mkdir dir="${##pkg.name##}" />
-        <copy todir="${##pkg.name##}" verbose="true">
-          <fileset dir="@{filesetDir}" includes="@{filesetIncludes}" excludes="@{filesetExcludes}" />
-        </copy>
-        -->
+        <!-- copy artifact resource  -->
+        <mkdir dir=".${task.name}/${##pkg.name##}" />
 
-        <tar destfile="${##pkg.name##}.tar.gz" basedir="${fileset.dir}" compression="gzip" includes="${fileset.includes}" excludes="${##pkg.name##}.tar.gz,${fileset.excludes}" />
+        <copy todir=".${task.name}/${##pkg.name##}" verbose="true">
+          <fileset dir="${fileset.dir}" includes="${fileset.includes}" excludes="${fileset.excludes}" />
+        </copy>
+
+        <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
     </target>
 
 </project>
