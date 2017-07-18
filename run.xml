@@ -4,8 +4,10 @@
     <!--
     args:
       artifact.id: opspkg
+      artifact.version: $PIPELINE_VERSION
       fileset.dir: ${ws.dir}
-      fileset.includes: *.xml,VERSION
+      fileset.includes: '*.xml,VERSION'
+      is.pkg: false
     -->
     <dirname property="task.basedir" file="${ant.file.opspkg}" />
     <basename property="task.name" file="${task.basedir}" />
