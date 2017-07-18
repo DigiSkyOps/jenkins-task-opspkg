@@ -49,7 +49,7 @@
         </copy>
 
         <if>
-          <istrue value="${only.copy}" />
+          <istrue value="${is.pkg}" />
           <then>
             <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
           </then>
