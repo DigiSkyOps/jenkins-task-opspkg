@@ -28,6 +28,7 @@
         <property name="fileset.dir" value="${ws.dir}" />
         <property name="fileset.includes" value="VERSION" />
         <property name="fileset.excludes" value="" />
+        <property name="pkg.sub.dir" value="" />
 
         <var name="##pkg.name##" value="${artifact.id}" />
         <if>
@@ -41,17 +42,19 @@
           </else>
         </if>
 
-        <!-- copy artifact resource  -->
-        <mkdir dir=".${task.name}/${##pkg.name##}" />
+        <var name="##pkg.dir##" value=".${task.name}/${##pkg.name##}/${pkg.sub.dir}" />
 
-        <copy todir=".${task.name}/${##pkg.name##}" verbose="true">
+        <!-- copy artifact resource  -->
+        <mkdir dir="${##pkg.dir##}" />
+
+        <copy todir="${##pkg.dir##}" verbose="true">
           <fileset dir="${fileset.dir}" includes="${fileset.includes}" excludes="${fileset.excludes}" />
         </copy>
 
         <if>
           <istrue value="${is.pkg}" />
           <then>
-            <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
+            <tar destfile="${##pkg.name##}.tar.gz" basedir="${##pkg.dir##}" compression="gzip" includes="**/*" />
           </then>
         </if>
 
