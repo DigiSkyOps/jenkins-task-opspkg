@@ -27,7 +27,7 @@
         <!-- copy file by fileset type -->
         <property name="fileset.dir" value="${ws.dir}" />
         <property name="fileset.includes" value="VERSION" />
-        <property name="fileset.excludes" value=".ci" />
+        <property name="fileset.excludes" value="" />
         <property name="pkg.sub.dir" value="" />
 
         <var name="##pkg.name##" value="${artifact.id}" />
@@ -54,7 +54,7 @@
         <if>
           <istrue value="${is.pkg}" />
           <then>
-            <tar destfile="${##pkg.name##}.tar.gz" basedir="${##pkg.dir##}" compression="gzip" includes="**/*" />
+            <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
           </then>
         </if>
 
