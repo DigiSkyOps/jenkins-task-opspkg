@@ -27,7 +27,7 @@
         <!-- copy file by fileset type -->
         <property name="fileset.dir" value="${ws.dir}" />
         <property name="fileset.includes" value="VERSION" />
-        <property name="fileset.excludes" value="" />
+        <property name="fileset.excludes" value=".ci" />
         <property name="pkg.sub.dir" value="" />
 
         <var name="##pkg.name##" value="${artifact.id}" />
