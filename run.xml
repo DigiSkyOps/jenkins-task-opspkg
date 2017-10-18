@@ -37,8 +37,16 @@
             <var name="##pkg.name##" value="${artifact.id}-${artifact.version}" />
           </then>
           <else>
-            <getVersionFromFile versionFile="${ws.dir}/VERSION" versionProperty="VERSION" />
-            <var name="##pkg.name##" value="${artifact.id}-${VERSION}" />
+            <if>
+              <available file="${ws.dir}/VERSION" />
+              <then>
+                <getVersionFromFile versionFile="${ws.dir}/VERSION" versionProperty="VERSION" />
+                <var name="##pkg.name##" value="${artifact.id}-${VERSION}" />
+              </then>
+              <else>
+                <var name="##pkg.name##" value="${artifact.id}" />
+              </else>
+            </if>
           </else>
         </if>
 
