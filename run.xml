@@ -50,6 +50,15 @@
           </else>
         </if>
 
+        <if>
+          <not>
+            <available file="${fileset.dir}" type="dir" />
+          </not>
+          <then>
+            <fail message="--//error fileset.dir is not exits." />
+          </then>
+        </if>
+
         <var name="##pkg.dir##" value=".${task.name}/${##pkg.name##}/${pkg.sub.dir}" />
 
         <!-- copy artifact resource  -->
