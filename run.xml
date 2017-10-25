@@ -59,7 +59,7 @@
           </then>
         </if>
 
-        <var name="##pkg.dir##" value=".${task.name}/${##pkg.name##}/${pkg.sub.dir}" />
+        <var name="##pkg.dir##" value="${ws.dir}/.${task.name}/${##pkg.name##}/${pkg.sub.dir}" />
 
         <!-- copy artifact resource  -->
         <mkdir dir="${##pkg.dir##}" />
@@ -71,7 +71,8 @@
         <if>
           <istrue value="${is.pkg}" />
           <then>
-            <tar destfile="${##pkg.name##}.tar.gz" basedir=".${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
+            <echo message="${ws.dir}" />
+            <tar destfile="${ws.dir}/${##pkg.name##}.tar.gz" basedir="${ws.dir}/.${task.name}/${##pkg.name##}" compression="gzip" includes="**/*" />
           </then>
         </if>
 
